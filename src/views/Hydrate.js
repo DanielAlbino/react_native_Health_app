@@ -1,55 +1,49 @@
 import React from 'react';
-import IconSetting from '../assets/Setting.svg';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 
 import {size} from '../consts/consts';
-import menuOptions from '../consts/menu';
-import ButtonMenu from '../components/Button';
+import MenuBtn from '../components/MenuBtn';
 import LinearGradient from 'react-native-linear-gradient';
-import CustomLineChart from '../components/CustomLineChart';
+import ButtonMenu from '../components/Button';
 
 const screenWidth = size.width;
 const screenHeight = size.height;
 
-const Main = ({navigation}) => {
-  const goTo = name => {
-    navigation.navigate(name);
-  };
-
+const Diabetes = ({navigation}) => {
   return (
     <LinearGradient colors={['#fff', '#d6f1ff']}>
       <View style={styles.container}>
         <LinearGradient colors={['#fff', 'transparent']}>
           <View style={styles.header}>
-            <View style={styles.settings}>
-              <IconSetting width={24} height={24} />
-            </View>
+            <View style={styles.settings} />
             <View style={styles.charts}>
-              <Text>Diabetes</Text>
-              <CustomLineChart label={[]} dataSet={[]} />
+              <Image
+                source={require('../assets/hydrate_big.png')}
+                style={styles.image}
+              />
             </View>
           </View>
           <View style={styles.body}>
             <View />
             <LinearGradient colors={['#fff', 'transparent']}>
               <View style={styles.menu}>
-                {menuOptions.map((arr, i) => (
-                  <View style={styles.line} key={i}>
-                    {arr.map((obj, index) => (
-                      <ButtonMenu
-                        key={`${index}_menu`}
-                        goTo={() => goTo(obj.name)}
-                        image={obj.image}
-                        text={obj.text}
-                      />
-                    ))}
-                  </View>
-                ))}
+                <View style={styles.line}>
+                  <ButtonMenu
+                    image={require('../assets/add.svg')}
+                    text={'Edit glass ml'}
+                  />
+                  <ButtonMenu
+                    image={require('../assets/add.svg')}
+                    text={'Statistics'}
+                  />
+                </View>
               </View>
             </LinearGradient>
           </View>
         </LinearGradient>
-        <View style={styles.footer} />
+        <View style={styles.footer}>
+          <MenuBtn navigation={navigation} />
+        </View>
       </View>
     </LinearGradient>
   );
@@ -115,6 +109,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
   },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#58A6CD',
+    borderRadius: 10,
+    width: 36,
+    height: 36,
+  },
+  image: {
+    width: 150,
+    height: 155,
+  },
 });
 
-export default Main;
+export default Diabetes;
