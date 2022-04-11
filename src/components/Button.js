@@ -1,8 +1,7 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
-
 import {Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native';
-
-const Button = ({image, text, goTo}) => {
+const Button = ({image = null, text, goTo, SvgIcon}) => {
   return (
     <TouchableHighlight
       style={styles.container}
@@ -10,17 +9,15 @@ const Button = ({image, text, goTo}) => {
       activeOpacity={0.8}
       underlayColor="transparent">
       <View>
-        <Image source={image} width={24} height={24} />
+        {image ? <Image source={image} width={24} height={24} /> : <SvgIcon />}
         <Text>{text}</Text>
       </View>
     </TouchableHighlight>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     margin: 10,
   },
 });
-
 export default Button;
