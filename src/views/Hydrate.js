@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, Image, Text, Switch} from 'react-native';
 
+import {getHydrateProgress} from '../consts/LocalStorage';
+
 import {size} from '../consts/consts';
 import MenuBtn from '../components/MenuBtn';
 import LinearGradient from 'react-native-linear-gradient';
@@ -10,10 +12,46 @@ import StatisticsIcon from '../assets/statistics.svg';
 
 const screenWidth = size.width;
 const screenHeight = size.height;
+const ml = 1500;
 
-const Diabetes = ({navigation}) => {
+const Hydrate = ({navigation}) => {
   const [toggled, setToggle] = React.useState(true);
-  const [progress, setProgress] = React.useState(75);
+  const [progress, setProgress] = React.useState(23.5);
+  const [message, setMessage] = React.useState('');
+
+  const handleProgressMessage = () => {
+    console.log('progress', progress);
+    if (progress >= 25 && progress < 50) {
+      setMessage("Let's go drink more water!");
+      return;
+    }
+    if (progress >= 50 && progress < 75) {
+      setMessage('Half way to go. Keep going!');
+      return;
+    }
+    if (progress >= 75 && progress < 100) {
+      setMessage('Almost reaching your goal!');
+      return;
+    }
+    if (progress === 100) {
+      setMessage('Congrats! Goal achieved!');
+      return;
+    }
+    setMessage('You need to drink water!');
+  };
+
+  const convertMlToLiters = () => {
+    return ((ml * (progress / 100)) / 1000).toFixed(2);
+  };
+
+  React.useEffect(() => {
+    handleProgressMessage();
+  }, []);
+
+  React.useEffect(() => {
+    handleProgressMessage();
+  }, [progress]);
+
   return (
     <LinearGradient colors={['#fff', '#d6f1ff']}>
       <View style={styles.container}>
@@ -26,7 +64,7 @@ const Diabetes = ({navigation}) => {
                   style={styles.image}
                 />
                 <View style={styles.progressBar}>
-                  <View style={[styles.innerBar, {height: progress}]} />
+                  <View style={[styles.innerBar, {height: progress * 1.5}]} />
                 </View>
               </View>
               <View
@@ -35,10 +73,10 @@ const Diabetes = ({navigation}) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={[styles.h2, {color: '#000'}]}>0.75 / 1.5L</Text>
-                <Text style={[styles.h2, {color: '#065C87'}]}>
-                  You are Half way!
+                <Text style={[styles.h2, {color: '#000'}]}>
+                  {convertMlToLiters()} / 1.5L
                 </Text>
+                <Text style={[styles.h2, {color: '#065C87'}]}>{message}</Text>
               </View>
             </View>
           </View>
@@ -193,4 +231,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Diabetes;
+export default Hydrate;

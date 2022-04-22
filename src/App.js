@@ -4,7 +4,7 @@ import Diabetes from './views/Diabetes';
 import Hydrate from './views/Hydrate';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import {reset} from './consts/LocalStorage';
 const Stack = createNativeStackNavigator();
 
 const App = () => {

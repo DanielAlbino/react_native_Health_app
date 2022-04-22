@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native';
 const Button = ({image = null, text, goTo, SvgIcon}) => {
